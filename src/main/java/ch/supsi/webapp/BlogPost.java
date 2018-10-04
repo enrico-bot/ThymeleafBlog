@@ -1,24 +1,27 @@
 package ch.supsi.webapp;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet(value="/blogpost")
-@SuppressWarnings("serial")
-public class BlogPost extends HttpServlet {
-    String title, text, author;
+public class BlogPost {
+    public String title, text, author;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("This is a GET: "+req);
+    public BlogPost(String title, String text, String author) {
+        this.title = title;
+        this.text = text;
+        this.author = author;
+    }
+    public BlogPost(){
+        this("","","");
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("This is a POST: "+req);
+    public static String getJSON(BlogPost p){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(p);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "JSON ERROR";
+        }
     }
 }
