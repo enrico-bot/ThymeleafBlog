@@ -19,29 +19,65 @@ public class BlogHandler extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String result = (new ArrayList<>(postArray.values())).stream()
+        String result = "["+(new ArrayList<>(postArray.values())).stream()
                 .map(BlogPost::getJSON)
-                .collect(Collectors.joining("\n"));
-        resp.getWriter().println("This is a GET: " + result);
+                .collect(Collectors.joining(","))+"]";
+        resp.getWriter().println(result);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        BlogPost obj = null;
-        // Attenzione, si può leggere il contenuto del body una volta sola
-        if (req.getHeader("Content-Type").equals("application/x-www-form-urlencoded")) {
-            obj = new BlogPost(req.getParameter("title"), req.getParameter("text"), req.getParameter("author"));
-        } else {
-            String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            obj = mapper.readValue(body, BlogPost.class);
+        BlogPost obj = reqToBlogPost(req);
+        if (postArray.containsKey(obj.title))
+            resp.getWriter().println("Error[602]: Post " + obj.title + " exists.");
+        else {
+            postArray.put(obj.title, obj);
+            resp.getWriter().println(BlogPost.getJSON(obj));
         }
-        postArray.put(obj.title, obj);
-        resp.getWriter().println(BlogPost.getJSON(obj));
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+        BlogPost obj = reqToBlogPost(req);
+        if (!postArray.containsKey(obj.title))
+            resp.getWriter().println("Error[601]: Post " + obj.title + " does not exists.");
+        else {
+            postArray.put(obj.title, obj);
+            resp.getWriter().println(BlogPost.getJSON(obj));
+        }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BlogPost obj = reqToBlogPost(req);
+        postArray.remove(obj.title);
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getMethod().equalsIgnoreCase("PATCH")) {
+            BlogPost obj = reqToBlogPost(req);
+            if (!postArray.containsKey(obj.title))
+                resp.getWriter().println("Error[601]: PATCH " + obj.title + " does not exists.");
+            else {
+                BlogPost old = postArray.get(obj.title);
+                if (obj.author.equalsIgnoreCase("")) obj.author = old.author;
+                if (obj.text.equalsIgnoreCase("")) obj.text = old.text;
+                postArray.put(obj.title, obj);
+                resp.getWriter().println(BlogPost.getJSON(obj));
+            }
+        } else super.service(req, resp);
+    }
+
+
+    private static BlogPost reqToBlogPost(HttpServletRequest req) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        if (req.getHeader("Content-Type").equals("application/x-www-form-urlencoded")) {
+            return new BlogPost(req.getParameter("title"), req.getParameter("text"), req.getParameter("author"));
+        } else {
+            String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            return mapper.readValue(body, BlogPost.class);
+        }
+    }
+
 }
