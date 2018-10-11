@@ -15,25 +15,22 @@ import java.util.stream.Collectors;
 @WebServlet(value = "/blogpost")
 @SuppressWarnings("serial")
 public class BlogHandler extends HttpServlet {
-    HashMap<String, BlogPost> postArray = new HashMap<>();
-
+    HashMap<Integer, BlogPost> postArray = new HashMap<>();
+    static  int i =0;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String result = "["+(new ArrayList<>(postArray.values())).stream()
+        String result = "[" + (new ArrayList<>(postArray.values())).stream()
                 .map(BlogPost::getJSON)
-                .collect(Collectors.joining(","))+"]";
+                .collect(Collectors.joining(",")) + "]";
         resp.getWriter().println(result);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BlogPost obj = reqToBlogPost(req);
-        if (postArray.containsKey(obj.title))
-            resp.getWriter().println("Error[602]: Post " + obj.title + " exists.");
-        else {
-            postArray.put(obj.title, obj);
-            resp.getWriter().println(BlogPost.getJSON(obj));
-        }
+
+        postArray.put(i++, obj);
+        resp.getWriter().println(BlogPost.getJSON(obj));
     }
 
     @Override
@@ -42,7 +39,7 @@ public class BlogHandler extends HttpServlet {
         if (!postArray.containsKey(obj.title))
             resp.getWriter().println("Error[601]: Post " + obj.title + " does not exists.");
         else {
-            postArray.put(obj.title, obj);
+            postArray.put(i++, obj);
             resp.getWriter().println(BlogPost.getJSON(obj));
         }
     }
@@ -50,20 +47,20 @@ public class BlogHandler extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BlogPost obj = reqToBlogPost(req);
-        postArray.remove(obj.title);
+        postArray.remove(i++);
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getMethod().equalsIgnoreCase("PATCH")) {
             BlogPost obj = reqToBlogPost(req);
-            if (!postArray.containsKey(obj.title))
+            if (!postArray.containsKey(i))
                 resp.getWriter().println("Error[601]: PATCH " + obj.title + " does not exists.");
             else {
-                BlogPost old = postArray.get(obj.title);
+                BlogPost old = postArray.get(i);
                 if (obj.author.equalsIgnoreCase("")) obj.author = old.author;
                 if (obj.text.equalsIgnoreCase("")) obj.text = old.text;
-                postArray.put(obj.title, obj);
+                postArray.put(i++, obj);
                 resp.getWriter().println(BlogPost.getJSON(obj));
             }
         } else super.service(req, resp);
