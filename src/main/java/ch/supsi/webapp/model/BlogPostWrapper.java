@@ -33,4 +33,16 @@ public class BlogPostWrapper {
         }
 
     }
+
+    public void updateTitle(String parm) {
+        blogPost.title = parm;
+    }
+
+    public void updateText(String parm) {
+        blogPost.text = parm;
+    }
+
+    public void updateAuthor(String parm) {
+        blogPost.author = parm;
+    }
 }

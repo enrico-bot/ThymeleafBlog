@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class BlogPost {
-    private String title, text, author;
+    public String title, text, author;
 
     @JsonCreator
     public BlogPost(@JsonProperty("title") String title,

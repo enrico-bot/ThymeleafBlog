@@ -1,5 +1,6 @@
 package ch.supsi.webapp;
 
+import ch.supsi.webapp.model.BlogPost;
 import ch.supsi.webapp.model.BlogPostWrapper;
 import org.apache.commons.lang3.StringUtils;
 
@@ -56,8 +57,24 @@ public class BlogHandler extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Request received");
         if (req.getMethod().equalsIgnoreCase("PATCH")) {
-            System.out.println(req.getPathInfo());
+            String[] tokenizedID = tokenizeIDParameters(req);
+            System.out.println(getBlogPostID(tokenizedID));
+            if (isBlogPostIDValid(tokenizedID, resp)) {
 
+                BlogPostWrapper oldElement = blogSet.get(getBlogPostID(tokenizedID));
+                BlogPostWrapper newElement = new BlogPostWrapper(req);
+                if(newElement.getBlogPost().author!=null){
+                    oldElement.getBlogPost().author = newElement.getBlogPost().author;
+                }
+                if(newElement.getBlogPost().title!=null){
+                    oldElement.getBlogPost().title = newElement.getBlogPost().title;
+                }
+                if(newElement.getBlogPost().text!=null){
+                    oldElement.getBlogPost().text = newElement.getBlogPost().text;
+                }
+                System.out.println(newElement.getBlogPost().text);
+
+            } else resp.getWriter().println("Error: unknown id");
         } else super.service(req, resp);
     }
 
