@@ -1,8 +1,10 @@
 package ch.supsi.webapp.web;
 
 import ch.supsi.webapp.web.model.BlogPost;
+import ch.supsi.webapp.web.model.BlogPostRepository;
 import ch.supsi.webapp.web.model.Person;
 import ch.supsi.webapp.web.model.RequestStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,10 @@ import java.util.List;
 
 @RestController
 public class BlogPostController {
+
+    @Autowired
+    BlogPostRepository blogPostRepository;
+
     private List<BlogPost> persons = new ArrayList<>();
     private int idCounter = 0;
 
@@ -33,7 +39,7 @@ public class BlogPostController {
     @RequestMapping(value = "/blogpost", method = RequestMethod.POST)
     public ResponseEntity<BlogPost> post(@RequestBody BlogPost blogPost) {
         blogPost.id = idCounter++;
-        persons.add(blogPost);
+        blogPostRepository.save(blogPost);
         return new ResponseEntity<>(blogPost, HttpStatus.OK);
     }
 
