@@ -4,6 +4,7 @@ import ch.supsi.webapp.web.model.BlogPost;
 import ch.supsi.webapp.web.model.BlogPostRepository;
 import ch.supsi.webapp.web.model.Person;
 import ch.supsi.webapp.web.model.RequestStatus;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +20,15 @@ public class BlogPostController {
     BlogPostRepository blogPostRepository;
 
     private List<BlogPost> persons = new ArrayList<>();
-    private int idCounter = 0;
 
     @RequestMapping(value = "/blogpost", method = RequestMethod.GET)
     public List<BlogPost> get() {
-        return persons;
+        return Lists.newArrayList(blogPostRepository.findAll());
     }
 
     @RequestMapping(value = "/blogpost/{id}", method = RequestMethod.GET)
     public BlogPost getPerson(@PathVariable long id) {
-        for (BlogPost person : persons) {
+        for (BlogPost person : blogPostRepository.findAll()) {
             if (person.id == id) {
                 return person;
             }
@@ -38,7 +38,7 @@ public class BlogPostController {
 
     @RequestMapping(value = "/blogpost", method = RequestMethod.POST)
     public ResponseEntity<BlogPost> post(@RequestBody BlogPost blogPost) {
-        blogPost.id = idCounter++;
+        blogPost.id = blogPostRepository.findFirstByOrderByIdDesc().id + 1;
         blogPostRepository.save(blogPost);
         return new ResponseEntity<>(blogPost, HttpStatus.OK);
     }
@@ -58,13 +58,13 @@ public class BlogPostController {
     public ResponseEntity<RequestStatus> putPost(@PathVariable long id, @RequestBody BlogPost blogPost) {
         for (int i = 0; i < persons.size(); i++) {
             if (persons.get(i).id == id) {
-                if (blogPost.author!=null){
+                if (blogPost.author != null) {
                     persons.get(i).author = blogPost.author;
                 }
-                if (blogPost.title!=null){
+                if (blogPost.title != null) {
                     persons.get(i).title = blogPost.title;
                 }
-                if (blogPost.text !=null){
+                if (blogPost.text != null) {
                     persons.get(i).text = blogPost.text;
                 }
                 return new ResponseEntity<>(new RequestStatus(true), HttpStatus.NO_CONTENT);

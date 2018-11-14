@@ -25,6 +25,10 @@ public class BlogPost {
         this.author = author;
     }
 
+    public BlogPost() {
+
+    }
+
     public String getTitle() {
         return title;
     }
