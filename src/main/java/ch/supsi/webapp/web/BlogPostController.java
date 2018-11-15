@@ -47,11 +47,10 @@ public class BlogPostController {
 
     @RequestMapping(value = "/blogpost/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<RequestStatus> deletePost(@PathVariable long id) {
-        for (int i = 0; i < persons.size(); i++) {
-            if (persons.get(i).id == id) {
-                persons.remove(i);
-                return new ResponseEntity<>(new RequestStatus(true), HttpStatus.NO_CONTENT);
-            }
+        BlogPost blogPost = blogPostRepository.findTop1ById(id);
+        if (blogPost != null) {
+            blogPostRepository.delete(blogPost);
+            return new ResponseEntity<>(new RequestStatus(true), HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(new RequestStatus(false), HttpStatus.NOT_FOUND);
     }
