@@ -7,5 +7,5 @@ import javax.persistence.Id;
 public class Categoria {
     @Id
     public long Id;
-    String name;
+    public String name;
 }

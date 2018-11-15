@@ -13,9 +13,9 @@ public class BlogPost {
     public String title, author;
     @Column(columnDefinition = "TEXT")
     public String text;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     public Categoria categoria;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     public Utente utente;
 
     @JsonCreator
