@@ -57,20 +57,20 @@ public class BlogPostController {
 
     @RequestMapping(value = "/blogpost/{id}", method = RequestMethod.PUT)
     public ResponseEntity<RequestStatus> putPost(@PathVariable long id, @RequestBody BlogPost blogPost) {
-        for (int i = 0; i < persons.size(); i++) {
-            if (persons.get(i).id == id) {
-                if (blogPost.author != null) {
-                    persons.get(i).author = blogPost.author;
-                }
-                if (blogPost.title != null) {
-                    persons.get(i).title = blogPost.title;
-                }
-                if (blogPost.text != null) {
-                    persons.get(i).text = blogPost.text;
-                }
-                return new ResponseEntity<>(new RequestStatus(true), HttpStatus.NO_CONTENT);
+        BlogPost oldBlogPost = blogPostRepository.findTop1ById(id);
+        if (oldBlogPost != null) {
+            if (blogPost.author != null) {
+                oldBlogPost.author = blogPost.author;
             }
+            if (blogPost.title != null) {
+                oldBlogPost.title = blogPost.title;
+            }
+            if (blogPost.text != null) {
+                oldBlogPost.text = blogPost.text;
+            }
+            return new ResponseEntity<>(new RequestStatus(true), HttpStatus.NO_CONTENT);
         }
+
         return new ResponseEntity<>(new RequestStatus(false), HttpStatus.NOT_FOUND);
     }
 }
