@@ -38,7 +38,9 @@ public class BlogPostController {
 
     @RequestMapping(value = "/blogpost", method = RequestMethod.POST)
     public ResponseEntity<BlogPost> post(@RequestBody BlogPost blogPost) {
-        blogPost.id = blogPostRepository.findFirstByOrderByIdDesc().id + 1;
+        if (blogPostRepository.findFirstByOrderByIdDesc() != null)
+            blogPost.id = blogPostRepository.findFirstByOrderByIdDesc().id + 1;
+        else blogPost.id = 0;
         blogPostRepository.save(blogPost);
         return new ResponseEntity<>(blogPost, HttpStatus.OK);
     }

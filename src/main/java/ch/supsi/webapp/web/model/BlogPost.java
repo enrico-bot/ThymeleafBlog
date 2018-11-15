@@ -4,9 +4,7 @@ package ch.supsi.webapp.web.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class BlogPost {
@@ -15,6 +13,10 @@ public class BlogPost {
     public String title, author;
     @Column(columnDefinition = "TEXT")
     public String text;
+    @ManyToOne
+    public Categoria categoria;
+    @ManyToOne
+    public Utente utente;
 
     @JsonCreator
     public BlogPost(@JsonProperty("title") String title,
