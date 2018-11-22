@@ -58,6 +58,7 @@ public class BlogPostController {
     @RequestMapping(value = "/blogpost/{id}", method = RequestMethod.PUT)
     public ResponseEntity<RequestStatus> putPost(@PathVariable long id, @RequestBody BlogPost blogPost) {
         BlogPost oldBlogPost = blogPostRepository.findTop1ById(id);
+        System.out.println(blogPost.title);
         if (oldBlogPost != null) {
             if (blogPost.author != null) {
                 oldBlogPost.author = blogPost.author;
@@ -68,6 +69,10 @@ public class BlogPostController {
             if (blogPost.text != null) {
                 oldBlogPost.text = blogPost.text;
             }
+            if (blogPost.categoria!=null){
+                oldBlogPost.categoria = blogPost.categoria;
+            }
+            blogPostRepository.save(oldBlogPost);
             return new ResponseEntity<>(new RequestStatus(true), HttpStatus.NO_CONTENT);
         }
 

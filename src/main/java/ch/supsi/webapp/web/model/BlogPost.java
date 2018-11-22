@@ -14,6 +14,7 @@ public class BlogPost {
     @Column(columnDefinition = "TEXT")
     public String text;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "CATEGORY_ID")
     public Categoria categoria;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     public Utente utente;
