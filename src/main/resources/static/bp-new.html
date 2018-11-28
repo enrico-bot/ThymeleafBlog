@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
+    <link rel="stylesheet" href="css/uikit.min.css"/>
+    <link rel="stylesheet" href="css/main2.css"/>
+    <link rel="stylesheet" href="css/new-bp.css"/>
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+
+</head>
+<body>
+<header>
+    <img src="./img/logo-ananas.jpg" alt="Logo" style="height: 2em; padding: 0.2em"/>
+    <h5>Bottani</h5>
+</header>
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li class="uk-active"><a href="#">New BlogPost</a></li>
+        </ul>
+
+    </div>
+</nav>
+<main id="new-bp">
+    <div id="title">
+        <h4 class="uk-heading-line uk-text-center"><span>Crea un nuovo blogpost</span></h4>
+    </div>
+    <form class="uk-form-horizontal content">
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Titolo</label>
+            <div class="uk-form-controls">
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
+                    <input class="uk-input uk-form-large" type="text" placeholder="Titolo">
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Utente</label>
+            <div class="uk-form-controls">
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon" uk-icon="icon: user"></span>
+                    <input class="uk-input" id="form-horizontal-text" type="text" placeholder="Utente">
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-select">Categoria</label>
+            <div class="uk-form-controls">
+                <select class="uk-select" id="form-horizontal-select">
+                    <option>Sport</option>
+                    <option>Scienza</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-horizontal-text">Text</label>
+            <div class="uk-form-controls">
+                <textarea class="uk-textarea" rows="5" placeholder="Textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <div class="uk-form-controls">
+                <button class="uk-button ">Salva come bozza</button>
+                <button class="uk-button uk-button-primary" type="submit">Invia</button>
+            </div>
+        </div>
+
+
+    </form>
+</main>
+<footer>
+    <p>Copyleft CC-by 2018 by Enrico Bottani</p>
+</footer>
+</body>
+</html>

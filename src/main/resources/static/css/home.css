@@ -1,0 +1,55 @@
+.article-cnt {
+    display: flex;
+    flex-flow: row;
+    max-width: 1100px;
+}
+
+article {
+
+    flex: 70%;
+}
+
+article > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 10px 0 0;
+}
+
+article > ul > li {
+    font-family: 'Noto Sans TC', sans-serif;
+    border: 1px solid #c0c0c0;
+    padding: 1em;
+    margin-bottom: 2vh;
+}
+
+article > ul > li:last-child{
+    margin-bottom: 0;
+}
+
+aside {
+    flex: 30%;
+    border: 1px solid #c0c0c0;
+}
+
+@media all and (max-width: 640px) {
+    main,
+    .article-cnt {
+        -moz-flex-flow: column;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+    }
+
+    aside {
+        order: 0;
+    }
+
+    article {
+        order: 1;
+    }
+
+    article > ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 10px 10px 10px;
+    }
+}

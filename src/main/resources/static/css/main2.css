@@ -1,0 +1,38 @@
+
+header {
+    display: flex;
+    background-color: #4b5461;
+    justify-content: center;
+}
+
+#title {
+    max-width: 600px;
+    margin: 3em auto 3em;
+}
+
+#title > * {
+    padding: 0 2rem;
+    text-transform: uppercase;
+}
+
+.content{
+    margin: 0 auto 0 auto;
+}
+
+header > h5 {
+    margin: 0;
+    align-self: center;
+    color: whitesmoke;
+    text-transform: uppercase;
+}
+
+footer {
+    background-color: #333333;
+}
+
+footer > p {
+    text-align: center;
+    font-size: 0.8em;
+    color: white;
+    margin: 0;
+}

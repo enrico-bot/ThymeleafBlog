@@ -1,0 +1,10 @@
+#new-bp {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+#new-bp > form {
+    font-family: 'Noto Sans TC', sans-serif;
+    padding: 0 2rem
+}
