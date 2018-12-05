@@ -5,12 +5,12 @@ header {
     justify-content: center;
 }
 
-#title {
+#page-title {
     max-width: 600px;
     margin: 3em auto 3em;
 }
 
-#title > * {
+#page-title > * {
     padding: 0 2rem;
     text-transform: uppercase;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
     <meta charset="utf-8">
@@ -15,33 +15,32 @@
 </head>
 <body>
 <header>
-    <img src="./img/logo-ananas.jpg" alt="Logo" style="height: 2em; padding: 0.2em"/>
+    <img src="img/logo-ananas.jpg" alt="Logo" style="height: 2em; padding: 0.2em"/>
     <h5>Bottani</h5>
 </header>
 <nav class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-center">
         <ul class="uk-navbar-nav">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li class="uk-active"><a href="#">New BlogPost</a></li>
         </ul>
 
     </div>
 </nav>
 <main id="new-bp">
-    <div id="title">
+    <div id="page-title">
         <h4 class="uk-heading-line uk-text-center"><span>Crea un nuovo blogpost</span></h4>
     </div>
-    <form class="uk-form-horizontal content">
+    <form class="uk-form-horizontal content" th:action="@{/new}" th:object="${blogPost}" method="post">
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">Titolo</label>
             <div class="uk-form-controls">
                 <div class="uk-inline uk-width-1-1">
                     <span class="uk-form-icon" uk-icon="icon: hashtag"></span>
-                    <input class="uk-input uk-form-large" type="text" placeholder="Titolo">
+                    <input class="uk-input uk-form-large" type="text" placeholder="Titolo" th:field="*{title}">
                 </div>
             </div>
         </div>
-
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">Utente</label>
             <div class="uk-form-controls">
@@ -51,7 +50,6 @@
                 </div>
             </div>
         </div>
-
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-select">Categoria</label>
             <div class="uk-form-controls">
@@ -61,14 +59,12 @@
                 </select>
             </div>
         </div>
-
         <div class="uk-margin">
             <label class="uk-form-label" for="form-horizontal-text">Text</label>
             <div class="uk-form-controls">
-                <textarea class="uk-textarea" rows="5" placeholder="Textarea"></textarea>
+                <textarea class="uk-textarea" rows="5" placeholder="Textarea" th:field="*{text}"></textarea>
             </div>
         </div>
-
         <div class="uk-margin">
             <div class="uk-form-controls">
                 <button class="uk-button ">Salva come bozza</button>
