@@ -32,7 +32,7 @@ public class DynamicBlogController {
 
     //TODO: Chiedere come fare, se metto /new/post, a non riadattare le dipendeze css
     @PostMapping("/new")
-    public String newBlogPost(@ModelAttribute BlogPost blogPost, Model model) {
+    public String newBlogPost(@ModelAttribute("blogPost") BlogPost blogPost, Model model) {
         blogPostService.add(blogPost);
         return "redirect:/";
     }
