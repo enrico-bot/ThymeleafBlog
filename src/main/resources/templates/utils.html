@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="nav(currentPage)"
+     class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Bottani</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li th:class="(${currentPage} == 0) ? 'nav-item active' : 'nav-item'">
+                    <a class="nav-link" th:href="(${currentPage} == 'home') ? '#' : @{/}">Home</a>
+                </li>
+                <li th:class="(${currentPage} == 1) ? 'nav-item active' : 'nav-item'">
+                    <a class="nav-link" th:href="(${currentPage} == 'new-post') ? '#' : @{/blog/new}">New BlogPost</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div th:fragment="title(currentPage)" class="container" >
+    <h1 class="display-1" th:text="${currentPage}"></h1>
+</div>
+
+<footer th:fragment="footer">
+    <p>Copyleft CC-by 2018 by Enrico Bottani</p>
+</footer>
+
+</html>

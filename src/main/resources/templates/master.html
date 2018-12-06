@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(id, fullName, content)">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="author" content="Enrico Bottani"/>
+    <meta name="description" content="A simple BlogPost"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Blog di Enrico</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main2.css"/>
+    <link rel="stylesheet" href="css/home.css"/>
+
+</head>
+<body>
+<header>
+</header>
+<nav th:replace="utils :: nav(${id})"></nav>
+<div th:replace="utils :: title(${fullName})"></div>
+<main class="container" th:include="${content}">
+
+
+
+    <aside><p>Sidebar</p></aside>
+
+</main>
+<footer th:replace="utils :: footer"></footer>
+</body>
+</html>

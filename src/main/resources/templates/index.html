@@ -1,65 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="author" content="Enrico Bottani"/>
-    <meta name="description" content="A simple BlogPost"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Blog di Enrico</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
-    <link rel="stylesheet" href="css/uikit.min.css"/>
-    <link rel="stylesheet" href="css/main2.css"/>
-    <link rel="stylesheet" href="css/home.css"/>
-
-    <script src="js/uikit.min.js"></script>
-    <script src="js/uikit-icons.min.js"></script>
-</head>
-<body>
-<header>
-    <img src="./img/logo-ananas.jpg" alt="Logo" style="height: 2em; padding: 0.2em"/>
-    <h5>Bottani</h5>
-</header>
-<nav class="uk-navbar-container" uk-navbar>
-    <div class="uk-navbar-center">
-        <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="#">Home</a></li>
-            <li><a href="new">New BlogPost</a></li>
-        </ul>
-
-    </div>
-</nav>
-
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{master :: layout(${page.getID()},${page.getFullName()},~{::main})}">>
 <main>
-    <div id="page-title">
-        <h4 class="uk-heading-line uk-text-center" id="home-title"><span>Home</span></h4>
-    </div>
-    <div class="article-cnt content">
-        <article>
-            <ul th:each="post : ${posts}">
-                <li>
-                    <h3><a class="uk-link-reset" href="#" th:text="${post.getTitle()}">Heading</a></h3>
-
-                    <p class="uk-article-meta">Written by <a href="#" th:text="${post.getAuthor()}">Unknown</a> on
-                        <time th:text="${post.getDate()}">12 April 2012</time>
-                    </p>
-                    <p th:text="${post.getText()}">Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-
-                    <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                        <div>
-                            <a class="uk-button uk-button-text" href="#">Read more</a>
-                        </div>
+    <article>
+        <ul th:each="post : ${posts}">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary" th:text="${post.getCategory().getName()}">Tag</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" href="#" th:text="${post.getTitle()}">Featured post</a>
+                    </h3>
+                    <div class="mb-1 text-muted">
+                        <p>Written by <a href="#" th:text="${post.getUser().getUserName()}">Unknown</a> on
+                            <time th:text="${post.getDate().toString()}">12 April 2012</time>
+                        </p>
                     </div>
-                </li>
-            </ul>
-        </article>
-        <aside><p>Sidebar</p></aside>
-    </div>
+                    <p class="card-text mb-auto" th:text="${post.getText()}">This is a wider card with supporting text
+                        below as a natural lead-in to additional content.</p>
+                    <a th:href="@{'/blog/'+${post.getId()}}">Continue reading</a>
+                </div>
+            </div>
+        </ul>
+    </article>
 </main>
-
-<footer>
-    <p>Copyleft CC-by 2018 by Enrico Bottani</p>
-</footer>
-</body>
 </html>
