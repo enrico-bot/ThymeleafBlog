@@ -1,9 +1,6 @@
 package ch.supsi.webapp.web.model.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -11,14 +8,15 @@ public class User {
     private String userName;
     @ManyToOne
     private Role role;
-
+    private String password;
 
     public User() {
     }
 
-    public User(String userName, Role role) {
+    public User(String userName, Role role, String password) {
         this.userName = userName;
         this.role = role;
+        this.password = password;
     }
 
     public String getUserName() {
@@ -35,5 +33,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

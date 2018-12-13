@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +27,7 @@ import java.util.List;
 // create database bottani CHARACTER SET=latin1
 @Service
 public class BlogPostService {
+
     @Autowired
     BlogPostRepository blogPostRepository;
 
@@ -40,8 +43,12 @@ public class BlogPostService {
     @PostConstruct
     public void init() {
         if (userRepository.findAll().size() == 0) {
+            roleRepository.save(new Role("ROLE_USER"));
             roleRepository.save(new Role("ROLE_ADMIN"));
-            User admin = new User("admin", new Role("ROLE_ADMIN"));
+            User admin = new User(
+                    "admin",
+                    new Role("ROLE_ADMIN"),
+                    new BCryptPasswordEncoder().encode("admin"));
             userRepository.save(admin);
 
         }
@@ -116,5 +123,17 @@ public class BlogPostService {
 
     public List<Category> getAllCategories() {
         return Lists.newArrayList(categoryRepository.findAll());
+    }
+
+    public User findUserByUsername(String username) {
+        return userRepository.findById(username).get();
+    }
+
+    public void addUser(User newUser) {
+        User admin = new User(
+                newUser.getUserName(),
+                new Role("ROLE_USER"),
+                new BCryptPasswordEncoder().encode(newUser.getPassword()));
+        userRepository.save(admin);
     }
 }

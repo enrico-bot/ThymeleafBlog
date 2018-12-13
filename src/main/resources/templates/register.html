@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html th:replace="~{master :: layout(${page.getID()},${page.getFullName()},~{::main})}"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<main>
+    <form class="px-4 py-3" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" th:field="*{userName}">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" th:field="*{password}">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <div class="dropdown-divider"></div>
+</main>
+</body>
+</html>
