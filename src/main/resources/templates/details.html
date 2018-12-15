@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{master :: layout(${page.getID()},${page.getFullName()},~{::main})}">>
-<main id="details">
+<main id="details" class="container">
     <article>
         <h1 th:text="${blogPost.getTitle()}"></h1>
         <p th:text="${blogPost.getText()}"></p>

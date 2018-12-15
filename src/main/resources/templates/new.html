@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{master :: layout(${page.getID()},${page.getFullName()},~{::main})}">
-<main id="new-bp">
+<main id="new-bp" class="container">
 
     <form th:object="${blogPost}"
           th:action="(${page.getID()} == 1) ? @{'/blog/new'}: @{'/blog/'+${blogPost.getId()}+'/edit'}"

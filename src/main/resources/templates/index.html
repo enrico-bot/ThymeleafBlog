@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{master :: layout(${page.getID()},${page.getFullName()},~{::main})}">>
-<main>
+<main class="container">
     <div class="card flex-md-row mb-4 shadow-sm h-md-250" th:each="post : ${posts}">
         <article class="card-body d-flex flex-column align-items-start">
             <strong class="d-inline-block mb-2 text-primary" th:text="${post.getCategory().getName()}">Tag</strong>
