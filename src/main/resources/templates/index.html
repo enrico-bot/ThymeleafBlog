@@ -10,7 +10,9 @@
             </h3>
             <div class="mb-1 text-muted">
                 <p>Written by <a href="#" th:text="${post.getUser().getUserName()}">Unknown</a> on
-                    <time th:text="${post.getDate().toString()}">12 April 2012</time>
+                    <time th:datetime="${post.getDate().toString()}" th:text="${post.getDate().toString()}">12 April
+                        2012
+                    </time>
                 </p>
             </div>
             <p class="card-text mb-auto" th:text="${post.getText()}">This is a wider card with supporting text

@@ -94,6 +94,6 @@ public class DynamicBlogController {
     @PostMapping("/register")
     public String register(ch.supsi.webapp.web.model.entity.User newUser, Model model) {
         blogPostService.addUser(newUser);
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

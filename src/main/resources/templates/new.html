@@ -3,7 +3,8 @@
       th:replace="~{master :: layout(${page.getID()},${page.getFullName()},~{::main})}">
 <main id="new-bp" class="container">
 
-    <form th:object="${blogPost}"
+    <form class="px-4 py-3"
+          th:object="${blogPost}"
           th:action="(${page.getID()} == 1) ? @{'/blog/new'}: @{'/blog/'+${blogPost.getId()}+'/edit'}"
           method="post">
         <div class="form-row">
