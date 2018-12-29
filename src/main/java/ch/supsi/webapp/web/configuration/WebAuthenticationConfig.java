@@ -27,6 +27,7 @@ public class WebAuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/blog/*/edit").authenticated()
                 .antMatchers("/blog/**").permitAll()
                 .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/fonts/**").permitAll()
                 .antMatchers("/login", "/register").permitAll()
