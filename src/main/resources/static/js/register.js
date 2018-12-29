@@ -2,35 +2,45 @@
     // genera errore se viene chiamata una variabile globale
     "use strict";
     let submitDisabled = false;
-    let password = document.querySelector('#password');
-    let passwordCheck = document.querySelector('#passwordCheck');
-    let handlerTable = (e) => {
+    let passwordInput = document.querySelector('#password');
+    let passwordCheckInput = document.querySelector('#passwordCheck');
+
+    function notifyWrongPassword(isWrong) {
+        if (isWrong) {
+            passwordInput.classList.add("is-invalid");
+            passwordCheckInput.classList.add("is-invalid");
+        } else {
+            passwordInput.classList.remove("is-invalid");
+            passwordCheckInput.classList.remove("is-invalid");
+        }
+    }
+
+    let passwdInputHandler = (e) => {
         document.querySelector('.btn.btn-primary').disabled = false;
-        if (document.querySelector('#password').value !== "")
-            if (document.querySelector('#password').value.localeCompare(document.querySelector('#passwordCheck').value) === 0) {
+        if (passwordInput.value !== "")
+            if (passwordInput.value.localeCompare(passwordCheckInput.value) === 0) {
                 submitDisabled = false;
-                console.log("EQUAL")
-                document.querySelector(".invalid-feedback").style.display = "none";
+                notifyWrongPassword(false);
             }
             else {
                 submitDisabled = true;
-                console.log("NOT EQUAL");
-                document.querySelector(".invalid-feedback").style.display = "none";
+                notifyWrongPassword(false);
             }
         else document.querySelector('.btn.btn-primary').disabled = true;
     };
+
     let submitHandler = (e) => {
         if (submitDisabled) {
             e.preventDefault();
-            document.querySelector(".invalid-feedback").style.display = "block";
+            notifyWrongPassword(true);
         }
     };
 // primo che trova
 
-    passwordCheck.addEventListener('keyup', handlerTable, false);
-    passwordCheck.addEventListener('change', handlerTable, false);
-    password.addEventListener('keyup', handlerTable, false);
-    password.addEventListener('change', handlerTable, false);
+    //passwordCheckInput.addEventListener('keyup', passwdInputHandler, false);
+    passwordCheckInput.addEventListener('change', passwdInputHandler, false);
+   // passwordInput.addEventListener('keyup', passwdInputHandler, false);
+    passwordInput.addEventListener('change', passwdInputHandler, false);
 
     document.querySelector('.btn.btn-primary').addEventListener('click', submitHandler, false);
 

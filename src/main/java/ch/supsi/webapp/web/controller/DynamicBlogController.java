@@ -68,6 +68,8 @@ public class DynamicBlogController {
     @PostMapping("/blog/{id}/edit")
     public String editBlogPost(@PathVariable long id, @ModelAttribute("blogPost") BlogPost blogPost, Model model) {
         blogPost.setId(id);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        blogPost.setUser(blogPostService.findUserByUsername(user.getUsername()));
         blogPostService.add(blogPost);
         return "redirect:/";
     }
