@@ -13,10 +13,6 @@
                 <li th:class="(${currentPage} == 0) ? 'nav-item active' : 'nav-item'">
                     <a class="nav-link" th:href="(${currentPage} == 'home') ? '#' : @{/}">Home</a>
                 </li>
-                <li th:class="(${currentPage} == 1) ? 'nav-item active' : 'nav-item'">
-                    <p th:if="(${currentPage} == 1)" class="nav-link">New BlogPost</p>
-                    <a th:if="(${currentPage} == 0)" class="nav-link" th:href="@{/blog/new}">New BlogPost</a>
-                </li>
             </ul>
         </div>
     </div>
