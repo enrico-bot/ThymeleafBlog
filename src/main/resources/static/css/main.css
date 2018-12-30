@@ -6,14 +6,21 @@ body {
 
 }
 
+.blog-header{}
+
 nav.bg-light {
-    border-top: 1px solid;
+    margin-bottom: 1.5rem!important;
+    border-bottom: 1px solid;
+    /*border-top: 1px solid;*/
     border-color: #c5c5c5;
     background-color: white !important;
-    /*border-bottom: 1px solid;*/
 }
 
 .nav-item.active {
+}
+
+.nav-item p{
+    margin-bottom: 0;
 }
 
 footer {
