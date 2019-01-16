@@ -66,7 +66,8 @@ public class DynamicBlogController {
     public String newBlogPost(@PathVariable long id, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //(Si ê debole, avevo fretta D: )
-        if (blogPostService.get(id).isDeleted() && !user.getUsername().equals("admin"))
+        //if (blogPostService.get(id).isDeleted() && !user.getUsername().equals("admin"))
+        if (blogPostService.get(id).isDeleted())
             return "redirect:/sorry";
         model.addAttribute("blogPost", blogPostService.get(id));
         model.addAttribute("page", new DetailsPage());
