@@ -2,6 +2,8 @@ package ch.supsi.webapp.web.model.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class BlogPost {
@@ -21,11 +23,29 @@ public class BlogPost {
     @ManyToOne
     private User user;
 
+    private boolean deleted;
+
+    @OneToMany
+    private List<Comment> comment = new ArrayList<>();
+
+
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
+
 
     // METHODS
 
+
+
+
     public BlogPost() {
         this.date = LocalDateTime.now();
+        this.deleted = false;
     }
 
     public String getTitle() {
@@ -74,5 +94,13 @@ public class BlogPost {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

@@ -6,7 +6,29 @@
         <h1 th:text="${blogPost.getTitle()}"></h1>
         <p th:text="${blogPost.getText()}"></p>
         <a role="button" class="btn btn-warning" th:href="@{'/blog/'+${blogPost.getId()}+'/edit'}">Edit</a>
-        <a role="button" class="btn btn-danger" sec:authorize="hasRole('ADMIN')" th:href="@{'/blog/'+${blogPost.getId()}+'/delete'}">Delete</a>
+        <a role="button" class="btn btn-danger" sec:authorize="hasRole('ADMIN')"
+           th:href="@{'/blog/'+${blogPost.getId()}+'/delete'}">Delete</a>
+        <p th:text="${blogPost.getText()}"></p>
+        <a th:href="@{'/commenta/'+${blogPost.getId()}}">commenta</a>
+        <ul th:each="comment : ${blogPost.getComment()}">
+            <li>
+                <p th:text="${comment.getUser().getUserName()}"></p>
+                <p th:text="${comment.getText()}"></p>
+                <button>rispondi</button>
+
+                <ul th:fragment="subcFragm(${comment})">
+                    <ul th:each="subc : ${comment.getSubc()}">
+                        <li >
+                            <p th:text="${subc.getUser().getUserName()}"></p>
+                            <p th:text="${subc.getText()}"></p>
+                            <button>rispondi</button>
+                        </li>
+                       <!-- <p th:replace="::subcFragm(${subc.getSubc()})"></p>  -->
+
+                    </ul>
+                </ul>
+            </li>
+        </ul>
     </article>
 </main>
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<main id="new-bp" class="container">
+    <form class="px-4 py-3"
+          th:object="${comment}"
+          method="post">
+        <div class="row">
+
+            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+
+                <label for="inputUsername" class="col-form-label">Title</label>
+                <input type="text" class="form-control" id="inputUsername" th:field="*{title}"
+                       th:value="${comment.getText()}">
+                <button type="submit" class="btn btn-primary" style="margin-top: 1em">Submit</button>
+            </div>
+            <!--
+            <div class="form-group col-md-3">
+                <label for="author" class="col-form-label">Author</label>
+                <select class="form-control" id="author" th:field="*{user}" th:selected="${blogPost.getUser()}">
+                    <option th:each="user : ${users}" th:value="${user.getUserName()}"
+                            th:text="${user.getUserName()}">
+                        Default select
+                    </option>
+                </select>
+            </div>
+            -->
+            <div class="form-group col-lg-9 col-md-8 col-sm-12">
+                <label for="exampleFormControlTextarea1" class="col-form-label">Text</label>
+
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" th:field="*{text}"
+                          th:value="${blogPost.getText()}"></textarea>
+
+            </div>
+
+        </div>
+
+
+    </form>
+</main>
+</html>
+
+
+
