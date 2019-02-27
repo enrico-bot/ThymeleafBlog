@@ -46,7 +46,7 @@ public class BlogPostService {
             roleRepository.save(new Role("ROLE_USER"));
             roleRepository.save(new Role("ROLE_ADMIN"));
             User admin = new User(
-                    "admin",
+                    "admin", "", "",
                     new Role("ROLE_ADMIN"),
                     new BCryptPasswordEncoder().encode("admin"));
             userRepository.save(admin);
@@ -132,6 +132,7 @@ public class BlogPostService {
     public void addUser(User newUser) {
         User admin = new User(
                 newUser.getUserName(),
+                newUser.getName(), newUser.getSurname(),
                 new Role("ROLE_USER"),
                 new BCryptPasswordEncoder().encode(newUser.getPassword()));
         userRepository.save(admin);

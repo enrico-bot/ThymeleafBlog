@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 @Entity
 public class User {
+    private String name;
+    private String surname;
     @Id
     private String userName;
     @ManyToOne
@@ -13,10 +15,28 @@ public class User {
     public User() {
     }
 
-    public User(String userName, Role role, String password) {
+    public User(String userName, String name, String surname, Role role, String password) {
+        this.name = name;
+        this.surname = surname;
         this.userName = userName;
         this.role = role;
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getUserName() {

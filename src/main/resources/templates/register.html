@@ -13,6 +13,21 @@
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Username"
                    th:field="*{userName}">
+            <div class="invalid-feedback">
+                Può contenere lettere maiuscole, minuscole, numeri e il carattere _
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Name & Surname</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="name" name="password" placeholder="Name"
+                       th:field="*{name}">
+                <input type="text" class="form-control" id="surname" aria-label="Surname"
+                       placeholder="Surname" style="border-radius: 0 4px 4px 0;" th:field="*{surname}">
+                <div class="invalid-feedback">
+                    Nome utente e cognome possono contenere solo lettere
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
@@ -22,12 +37,15 @@
                 <input type="password" class="form-control" id="passwordCheck" aria-label="Last name"
                        placeholder="Re-type password" style="border-radius: 0 4px 4px 0;">
                 <div class="invalid-feedback">
-                    Le password inserite non coincidono
+                    Le password devono coincidere, possono contenere maiuscole, minuscole, numeri e il carattere '_'.
+                    Inoltre devono avere da 8 a 15 caratteri.
                 </div>
             </div>
         </div>
-
+        <div id="submitSpace"></div>
+        <!--
         <button type="submit" class="btn btn-primary" disabled>Register</button>
+        -->
     </form>
     <div class="dropdown-divider"></div>
 </main>
